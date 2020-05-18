@@ -9,7 +9,7 @@ public abstract class ModContainer {
 	public File modFile;
 	public Manifest manifest;
 	public ModInfo info;
-	public Dependant[] dependants;
-	public Lib[] libs;
+	public Lib[] libs;//download java libraries
+	public Dependant[] dependancies;
 
 }

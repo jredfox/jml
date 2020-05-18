@@ -4,11 +4,11 @@ import java.io.File;
 
 public class Manifest {
 	
-	public String mcversion;//mc version it's assigned to
+	public String mcversion;//won't load if the mc version doesn't match
 	public String mod;//mod class path
-	public String coremod;//core mod classpath
-	public String at;//accesstransformer
-	public boolean jarmod;//whether or not the jar contains classes to replace in memory
+	public String coremod;//coremod classpath
+	public String at;//acess transformer
+	public boolean jarmod;//if true has classes to be replaced in memory not recommended
 	
 	public Manifest()
 	{
