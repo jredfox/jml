@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Manifest {
 	
-	public String mcversion;//won't load if the mc version doesn't match
+	public String gameVersion;//not all game builds are semantic versions so we keep it as a string
 	public String mod;//mod class path
 	public String coremod;//coremod classpath
 	public String at;//acess transformer
@@ -15,9 +15,9 @@ public class Manifest {
 		
 	}
 	
-	public Manifest(String mcversion, String mod, String coremod, String at, boolean jarmod)
+	public Manifest(String gameVersion, String mod, String coremod, String at, boolean jarmod)
 	{
-		this.mcversion = mcversion;
+		this.gameVersion = gameVersion;
 		this.mod = mod;
 		this.coremod = coremod;
 		this.at = at;
