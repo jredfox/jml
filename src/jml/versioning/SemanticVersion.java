@@ -1,73 +1,79 @@
 package jml.versioning;
 
 /**
- * format is prefix + major.minor.patch-prerelease+build more info found at https://semver.org/
- * @author jredfox
+ * format is major.minor.patch-rc.rcBuild+build
+ * major is what version of the api are you on
+ * minor is making backwards compatibility
+ * patch is bug fixes
+ * rc is a pre release for your next api change
+ * rc build is what build your on of your rc
+ * the build is an integer value and describes what commit you have released either to github or the public and is display only as the semantic versioning is what is realy used here
  */
-public class SemanticVersion extends Version{
+public class SemanticVersion implements Comparable<SemanticVersion>{
 	
 	public int major;
 	public int minor;
 	public int patch;
-	public Dev pre = Dev.stable;
-	public int preBuild;//pre-release build
-	public int build;//semantic version as integer an actual build number
+	public PreRelease rc;
+	public int build;
+	public static boolean showBuilds = true;
 	
 	public SemanticVersion(int major, int minor, int patch)
+	{
+		this(major, minor, patch, null, 0);
+	}
+	
+	public SemanticVersion(int major, int minor, int patch, PreRelease rc)
+	{
+		this(major, minor, patch, rc, 0);
+	}
+	
+	public SemanticVersion(int major, int minor, int patch, int build)
+	{
+		this(major, minor, patch, null, build);
+	}
+	
+	public SemanticVersion(int major, int minor, int patch, PreRelease rc, int build)
 	{
 		this.major = major;
 		this.minor = minor;
 		this.patch = patch;
-	}
-	
-	public SemanticVersion(int major, int minor, int patch, Dev dev)
-	{
-		this(major, minor, patch);
-		this.pre = dev;
+		this.rc = rc;
+		this.build = build;
 	}
 	
 	/**
-	 * parse a semantic version from a string
+	 * parse a SemanticVersion from a string
 	 */
 	public SemanticVersion(String str)
 	{
-		
+		String[] vs = str.split("\\.", 3);
+		this.major = Integer.parseInt(vs[0]);
+		this.minor = Integer.parseInt(vs[1]);
+		this.patch = Integer.parseInt(vs[2]);
+		System.out.println(vs[2]);
 	}
 	
 	@Override
 	public String toString()
 	{
-		return this.major + "." + this.minor + "." + this.patch + "-" + this.pre + "." + this.preBuild + "+" + this.build;
+		return this.major + "." + this.minor + "." + this.patch + (this.rc != null ? "-" + this.rc : "") + (SemanticVersion.showBuilds ? "+" + this.build : "");
 	}
-
-	public static class Dev
+	
+	@Override
+	public boolean equals(Object other)
 	{
-		public String state;
-		public String shortened;
-		public byte value;
-		
-		public static final Dev alpha = new Dev("alpha", "a", 0);
-		public static final Dev beta = new Dev("beta", "b", 10);
-		public static final Dev prerelease = new Dev("pre-release", "rc", 20);
-		public static final Dev stable = new Dev("stable", 30);//1.0+ stage
-		public static final Dev omega = new Dev("omega","o", 40);//finished / final stage of dev where you are no longer going to update unless needed
-		
-		public Dev(String dev, int b)
-		{
-			this(dev, dev, b);
-		}
-		
-		public Dev(String dev, String shortened, int b)
-		{
-			this.state = dev;
-			this.shortened = shortened;
-			this.value = (byte) b;
-		}
-		
-		@Override
-		public String toString()
-		{
-			return this.state;
-		}
+		if(!(other instanceof SemanticVersion))
+			return false;
+		SemanticVersion o = (SemanticVersion) other;
+		boolean pr = this.rc != null && this.rc.equals(o.rc);
+		return this.major == o.major && this.minor == o.minor && this.patch == o.patch && pr;
 	}
+	
+	@Override
+	public int compareTo(SemanticVersion other)
+	{
+		return 0;
+	}
+	
 }

@@ -1,13 +1,14 @@
 package jml.loader;
 
+import jml.versioning.DevState;
+import jml.versioning.PreRelease;
 import jml.versioning.SemanticVersion;
 
 public class Run {
 	
 	public static void main(String[] args)
 	{
-		SemanticVersion version = new SemanticVersion(1, 22, 100);
-		System.out.println(version);
+		SemanticVersion version = new SemanticVersion("1.22.3-alpha.1+25469");
 	}
 
 }
