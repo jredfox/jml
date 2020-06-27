@@ -5,13 +5,13 @@ import java.util.List;
 
 public class DevState{
 	
-	public String state;
-	public String shortened;
+	public String name;
+	public String ab;//Abbreviation
 	
 	public static final DevState alpha = new DevState("alpha", "a");
 	public static final DevState beta = new DevState("beta", "b");
-	public static final DevState rc = new DevState("pre-release", "rc");
-	public static final DevState release = new DevState("release");
+	public static final DevState pre = new DevState("pre-release", "pre");
+	public static final DevState release = new DevState("release", "r");
 	public static final DevState omega = new DevState("omega","o");
 	public static final List<DevState> states = new ArrayList<DevState>(7);
 	
@@ -19,36 +19,20 @@ public class DevState{
 	{
 		alpha.insert(null);
 		beta.insert(alpha);
-		rc.insert(beta);
-		release.insert(rc);
+		pre.insert(beta);
+		release.insert(pre);
 		omega.insert(release);
 	}
 	
-	public DevState(String state)
+	public DevState(String name)
 	{
-		this(state, state);
+		this(name, name);
 	}
 	
-	public DevState(String state, String shortened)
+	public DevState(String name, String abbreviation)
 	{
-		this.state = state;
-		this.shortened = shortened;
-	}
-	
-	@Override
-	public boolean equals(Object other)
-	{
-		if(!(other instanceof DevState))
-		{
-			return false;
-		}
-		return this.state.equals( ((DevState)other).state );
-	}
-	
-	@Override
-	public String toString()
-	{
-		return this.state;
+		this.name = name;
+		this.ab = abbreviation;
 	}
 	
 	/**
@@ -67,5 +51,26 @@ public class DevState{
 	public int value()
 	{
 		return states.indexOf(this);
+	}
+
+	public boolean isReleased() 
+	{
+		return this.value() >= release.value();
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(!(other instanceof DevState))
+		{
+			return false;
+		}
+		return this.name.equals( ((DevState)other).name );
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.name;
 	}
 }

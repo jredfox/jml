@@ -1,20 +1,52 @@
 package jml.versioning;
 
 /**
- * Format is gamestate.major.minor.patch-prerelease-(build)+build
+ * @author jredfox
+ * Format is gamestate.major.minor.patch_subpatch+build
+ * If the api is stable >= 1.0
+ * The versioning resets every time a DevState increments and if the program is stable it's 1.0
+ * This versioning system is copied from minecraft's versioning system
  */
-public class DevStateVersion {
+public class DevStateVersion implements Comparable<DevStateVersion>{
 	
-	public DevState state;//what state is the game/program running in
-	public int major;//an api changes or major update
-	public int minor;//more then a patch update
-	public int patch;//release a patch
-	public int subpatch;//when your patch number doesn't increment since the changes were too minor
-	public int build;//what push is this?
+	public DevState state;
+	public int subpatch;
+	public SemanticVersion version;
 	
-	public DevStateVersion(DevState state, int major, int minor, int patch, int subpatch, int build)
+	public static boolean subchars = false;//make _002 > b or something whenever possible
+	public static boolean showBuilds = true;
+	
+	public DevStateVersion(DevState state, SemanticVersion version)
+	{
+		this(state, version, 0);
+	}
+	
+	public DevStateVersion(DevState state, SemanticVersion version, int subpatch)
 	{
 		this.state = state;
+		this.version = version;
+		this.subpatch = subpatch;
+	}
+	
+	@Override
+	public int compareTo(DevStateVersion o) 
+	{
+		return -1;//TODO:
+	}
+	
+	@Override
+	public String toString()
+	{
+		return this.state.ab + "." + this.version;
+	}
+	
+	@Override
+	public boolean equals(Object other)
+	{
+		if(!(other instanceof DevStateVersion))
+			return false;
+		//TODO:
+		return false;
 	}
 	
 }
