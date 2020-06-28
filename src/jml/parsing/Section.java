@@ -14,6 +14,11 @@ public class Section {
 	public String lquote;
 	public String rquote;
 	
+	public Section(String s, String e)
+	{
+		this(s, e, "", "");
+	}
+	
 	public Section(String s, String e, String lq, String rq)
 	{
 		this.start = s;
