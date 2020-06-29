@@ -33,6 +33,8 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 	
 	public SemanticVersion(int major, int minor, int patch, int pre, int build)
 	{
+		if(major < 0 || minor < 0 || patch < 0 || pre < 0 || build < 0)
+			throw new IllegalArgumentException("SemanticVersion Must contains postive integers!");
 		this.major = major;
 		this.minor = minor;
 		this.patch = patch;
@@ -45,28 +47,28 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 	 */
 	public SemanticVersion(String str)
 	{
-		Section major = new Section("", ".");
-		Section minor = new Section("", ".");
-		Section patch = new Section("", ".");
+		Section major = new Section("", ".", true);
+		Section minor = new Section("", ".", true);
+		Section patch = new Section("", "", true);
 		Section pre = new Section("-","");
 		Section build = new Section("+", "");
 		Section.select(str, major, minor, patch, pre, build);
 		
-		//parse the main versioning
-		this.major = Integer.parseInt(major.value);
-		this.minor = Integer.parseInt(minor.value);
-		this.patch = Integer.parseInt(patch.value);
-		
-		//parse the pre-release
-		if(pre.value != null)
-		{
-			this.pre = Integer.parseInt(pre.value.substring(1));
-		}
-		
-		if(build.value != null)
-		{
-			this.build = Integer.parseInt(build.value.substring(1));
-		}
+//		//parse the main versioning
+//		this.major = Integer.parseInt(major.value);
+//		this.minor = Integer.parseInt(minor.value);
+//		this.patch = Integer.parseInt(patch.value);
+//		
+//		//parse the pre-release
+//		if(pre.value != null)
+//		{
+//			this.pre = Integer.parseInt(pre.value.substring(1));
+//		}
+//		
+//		if(build.value != null)
+//		{
+//			this.build = Integer.parseInt(build.value.substring(1));
+//		}
 	}
 	
 	@Override

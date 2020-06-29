@@ -2,7 +2,7 @@ package jml.versioning;
 
 /**
  * @author jredfox
- * Format is gamestate.major.minor.patch_subpatch+build
+ * Format is gamestate.major.minor.patch_subpatch-pre.preBuild+build
  * If the api is stable >= 1.0
  * The versioning resets every time a DevState increments and if the program is stable it's 1.0
  * This versioning system is copied from minecraft's versioning system

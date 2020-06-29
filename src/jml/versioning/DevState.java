@@ -17,11 +17,11 @@ public class DevState{
 	
 	static
 	{
-		alpha.insert(null);
-		beta.insert(alpha);
-		pre.insert(beta);
-		release.insert(pre);
-		omega.insert(release);
+		alpha.register(null);
+		beta.register(alpha);
+		pre.register(beta);
+		release.register(pre);
+		omega.register(release);
 	}
 	
 	public DevState(String name)
@@ -36,9 +36,9 @@ public class DevState{
 	}
 	
 	/**
-	 * inserts the state to after a specific state
+	 * register a state after a specified location
 	 */
-	public void insert(DevState loc)
+	public void register(DevState loc)
 	{
 		if(states.contains(this))
 		{
@@ -46,6 +46,14 @@ public class DevState{
 		}
 		int index = states.indexOf(loc) + 1;
 		states.add(index, this);
+	}
+	
+	/**
+	 * unregisters the DevState from the registry
+	 */
+	public void unregister()
+	{
+		states.remove(this);
 	}
 	
 	public int value()
@@ -66,6 +74,12 @@ public class DevState{
 			return false;
 		}
 		return this.name.equals( ((DevState)other).name );
+	}
+	
+	@Override
+	public int hashCode()
+	{
+		return this.name.hashCode();
 	}
 	
 	@Override
