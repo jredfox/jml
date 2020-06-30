@@ -14,7 +14,6 @@ public class DevStateVersion implements Comparable<DevStateVersion>{
 	public SemanticVersion version;
 	
 	public static boolean subchars = false;//make _002 > b or something whenever possible
-	public static boolean showBuilds = true;
 	
 	public DevStateVersion(DevState state, SemanticVersion version)
 	{
@@ -37,7 +36,12 @@ public class DevStateVersion implements Comparable<DevStateVersion>{
 	@Override
 	public String toString()
 	{
-		return this.state.ab + "." + this.version;
+		return this.toString(true);
+	}
+	
+	public String toString(boolean sbuilds)
+	{
+		return this.state.ab + "." + this.version.toString(sbuilds);//TODO:
 	}
 	
 	@Override

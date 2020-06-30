@@ -5,6 +5,6 @@ import jml.versioning.SemanticVersion;
 public class Dependant {
 	
 	public String id;
-	public SemanticVersion minVersion;//TODO: support "*" and "#.*" for comparing
+	public SemanticVersion minVersion;
 
 }

@@ -19,7 +19,7 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 	public int pre;
 	public int build;
 	
-	public static final SemanticVersion anyVersion = null;//TODO:
+	public static final SemanticVersion anyVersion = null; // new SemanticVersion("*");//TODO:
 	
 	public SemanticVersion(int major, int minor, int patch)
 	{
@@ -54,20 +54,26 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 		Section build = new Section("+", "");
 		Section.select(str, major, minor, patch, pre, build);
 		
+		System.out.println(major.value);
+		System.out.println(minor.value);
+		System.out.println(patch.value);
+		System.out.println(pre.value);
+		System.out.println(build.value);
+		
 //		//parse the main versioning
 //		this.major = Integer.parseInt(major.value);
 //		this.minor = Integer.parseInt(minor.value);
 //		this.patch = Integer.parseInt(patch.value);
 //		
 //		//parse the pre-release
-//		if(pre.value != null)
+//		if(!pre.value.isEmpty())
 //		{
-//			this.pre = Integer.parseInt(pre.value.substring(1));
+//			this.pre = Integer.parseInt(pre.value.split("\\.")[1]);
 //		}
 //		
-//		if(build.value != null)
+//		if(!build.value.isEmpty())
 //		{
-//			this.build = Integer.parseInt(build.value.substring(1));
+//			this.build = Integer.parseInt(build.value);
 //		}
 	}
 	
@@ -88,7 +94,7 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 		if(!(other instanceof SemanticVersion))
 			return false;
 		SemanticVersion o = (SemanticVersion) other;
-		return this.major == o.major && this.minor == o.minor && this.patch == o.patch && pre == o.pre;
+		return this.major == o.major && this.minor == o.minor && this.patch == o.patch && this.pre == o.pre;
 	}
 	
 	@Override
