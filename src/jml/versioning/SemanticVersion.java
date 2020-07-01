@@ -60,7 +60,7 @@ public class SemanticVersion implements Comparable<SemanticVersion>{
 		System.out.println(pre.value);
 		System.out.println(build.value);
 		
-//		//parse the main versioning
+		//parse the main versioning
 //		this.major = Integer.parseInt(major.value);
 //		this.minor = Integer.parseInt(minor.value);
 //		this.patch = Integer.parseInt(patch.value);

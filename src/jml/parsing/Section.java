@@ -9,15 +9,19 @@ import java.util.Set;
  */
 public class Section {
 	
-	public String value = "";//the section's string value
+	//parsing
+	public String value = "";//the section's string value after parsing
 	public Set<String> invalid;//built when a selection object is created
+	public boolean started;//internal when the parser section has started parsing
+	public boolean evenBraces;//whether or not it should have the same number of open and closing braces for the section
 	
+	//section properties
 	public String start;
 	public String end;
 	public String lquote;
 	public String rquote;
 	public boolean req;//is the section required to be parsed every time
-	public boolean started;
+
 	
 	public Section(String s, String e)
 	{
@@ -31,11 +35,17 @@ public class Section {
 	
 	public Section(String s, String e, String lq, String rq, boolean req)
 	{
+		this(s, e, lq, rq, req, false);
+	}
+	
+	public Section(String s, String e, String lq, String rq, boolean req, boolean eb)
+	{
 		this.start = s;
 		this.end = e;
 		this.lquote = lq;
 		this.rquote = rq;
 		this.req = req;
+		this.evenBraces = eb;
 		this.invalid = new HashSet<String>(6);
 	}
 	
