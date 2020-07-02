@@ -1,4 +1,4 @@
-package jml.line.comment;
+package jml.file.llib.comment;
 
 public class Comment implements IComment{
 	

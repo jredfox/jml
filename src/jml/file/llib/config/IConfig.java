@@ -1,9 +1,9 @@
-package jml.line.config;
+package jml.file.llib.config;
 
 import java.util.List;
 
-import jml.line.comment.IComment;
-import jml.line.line.ILine;
+import jml.file.llib.comment.IComment;
+import jml.file.llib.line.ILine;
 
 public interface IConfig {
 	

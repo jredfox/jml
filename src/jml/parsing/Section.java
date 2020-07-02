@@ -84,44 +84,10 @@ public class Section {
 			}
 		}
 		
-		if(str == null || str.isEmpty())
-		{
-			throw new IllegalArgumentException("cannot select an empty or null string");
-		}
-		
 		int index = 0;
-		Section sec = secs[index++];
-		for(int i = 0; i < str.length(); i++)
+		for(int i = 0; i < secs.length; i++)
 		{
-			String s = str.substring(i, i + 1);
-			
-			//detect if the section should end and if it's a blank ending then append last char
-			if(!sec.end.isEmpty() && sec.end.contains(s) || !sec.invalid.isEmpty() && sec.invalid.contains(nxtChar(str, i)))
-			{
-				if(sec.end.isEmpty())
-				{
-					sec.value += s;
-				}
-				sec = secs[index++];
-				continue;
-			}
-			
-			//detect if a section has started and if so append last char if it's empty
-			if(!sec.started && sec.canStart(s))
-			{
-				sec.started = true;
-				if(sec.start.isEmpty())
-				{
-					sec.value += s;
-				}
-				continue;
-			}
-			
-			//Append chars to the value
-			if(sec.started)
-			{
-				sec.value += s;
-			}
+			Section sec = secs[i];
 		}
 	}
 
