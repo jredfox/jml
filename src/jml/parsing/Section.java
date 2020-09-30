@@ -12,8 +12,6 @@ public class Section {
 	//parsing
 	public String value = "";//the section's string value after parsing
 	public Set<String> invalid;//built when a selection object is created
-	public boolean started;//internal when the parser section has started parsing
-	public boolean evenBraces;//whether or not it should have the same number of open and closing braces for the section
 	
 	//section properties
 	public String start;
@@ -21,7 +19,7 @@ public class Section {
 	public String lquote;
 	public String rquote;
 	public boolean req;//is the section required to be parsed every time
-
+	public boolean evenBraces;//whether or not it should have the same number of open and closing braces for the section
 	
 	public Section(String s, String e)
 	{
@@ -61,7 +59,6 @@ public class Section {
 	{
 		this.value = "";
 		this.invalid.clear();
-		this.started = false;
 	}
 	
 	public static void select(String str, Section... secs)
@@ -77,17 +74,29 @@ public class Section {
 				{
 					Section in = secs[j];
 					if(!in.start.isEmpty())
+					{
 						sec.invalid.add(in.start);
+					}
 					else if(!in.end.isEmpty())
+					{
 						sec.invalid.add(in.end);
+					}
+					if(in.req)
+					{
+						break;//break the loop of building invalid chars if the section will happen
+					}
 				}
 			}
 		}
 		
-		int index = 0;
-		for(int i = 0; i < secs.length; i++)
+		int startingIndex = 0;//last known index
+		boolean started = false;//has the section started
+		for(Section sec : secs)
 		{
-			Section sec = secs[i];
+			for(int currentIndex = startingIndex; currentIndex < str.length(); currentIndex++)
+			{
+				String s = str.substring(currentIndex, currentIndex + 1);
+			}
 		}
 	}
 
